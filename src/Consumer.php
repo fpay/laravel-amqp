@@ -16,6 +16,29 @@ class Consumer extends Request
     protected $messageCount = 0;
 
     /**
+     * @throws Exception\Configuration
+     */
+    public function setup()
+    {
+        parent::setup();
+
+        $qos = $this->getProperty('qos');
+        if ($qos) {
+
+            /*
+                prefetch_size:
+                prefetch_count: number of unacknowledged messages
+                global: if true, the limit is shared across all consumers on the channel
+             */
+            $this->channel->basic_qos(
+                $qos['prefetch_size'],
+                $qos['prefetch_count'],
+                $qos['global']
+            );
+        }
+    }
+
+    /**
      * @param string  $queue
      * @param Closure $closure
      * @return bool

@@ -51,6 +51,8 @@ return [
             'consumer_nowait'       => false,
             'timeout'               => 0,
             'persistent'            => false,
+
+            'qos'                   => ['prefetch_size' => 0, 'prefetch_count' => 1, 'global' => false],
         ],
 
     ],
